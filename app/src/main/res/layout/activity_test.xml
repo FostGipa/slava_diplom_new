@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".activities.TestActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp"
+>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/loginBackButton"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="#2260FF"
+            android:layout_centerInParent="true"
+            android:text="Тест"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:text="Вопрос"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:text="Далее"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</LinearLayout>

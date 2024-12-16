@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PartnersActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="20dp">
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/backButton"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="#2260FF"
+            android:layout_centerInParent="true"
+            android:text="Партнеры"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/challenge_list_item_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/white_oval"
+                    android:src="@drawable/ic_read"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Читай-город"
+                        android:textColor="#2260FF"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:textSize="17sp"
+                        android:maxLines="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Книжный магазин"
+                        android:textColor="#6E7375"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:textSize="14sp"
+                        android:maxLines="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Перейти"
+                android:id="@+id/bookButton"
+                android:background="@drawable/button_bg"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/challenge_list_item_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/white_oval"
+                    android:src="@drawable/ic_read"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Спортмастер"
+                        android:textColor="#2260FF"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:textSize="17sp"
+                        android:maxLines="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Спортивный магазин"
+                        android:textColor="#6E7375"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:textSize="14sp"
+                        android:maxLines="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Перейти"
+                android:id="@+id/sportButton"
+                android:background="@drawable/button_bg"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/challenge_list_item_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/white_oval"
+                    android:src="@drawable/ic_read"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Skyend"
+                        android:textColor="#2260FF"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:textSize="17sp"
+                        android:maxLines="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Языковая школа"
+                        android:textColor="#6E7375"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:textSize="14sp"
+                        android:maxLines="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Перейти"
+                android:id="@+id/languageButton"
+                android:background="@drawable/button_bg"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

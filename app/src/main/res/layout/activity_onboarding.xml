@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.OnboardingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/onboarding_img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Challenger"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/onboardingLoginButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_bg"
+            android:text="Войти"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textSize="20sp"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/onboardingSignupButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="#CAD6FF"
+            android:text="Зарегистрироваться"
+            android:textAllCaps="false"
+            android:textColor="#2260FF"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

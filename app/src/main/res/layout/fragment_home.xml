@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Привет"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textSize="30sp"
+                android:textColor="#2260FF"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="30dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:weightSum="2"
+                android:background="@drawable/home_card_bg">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scoreTextView"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textSize="40sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="очк."
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parthnersButton"
+                    android:layout_marginStart="20dp"
+                    android:paddingHorizontal="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_bg"
+                    android:backgroundTint="@color/white"
+                    android:text="Потратить \nочки"
+                    android:textColor="#495ECA"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Список ваших испытаний"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:scrollbars="vertical"
+                android:id="@+id/activeChallengeRecyclerView"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/categoriesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Категории"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/ubuntu_medium"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Кнопка "Reading" -->
+                <TextView
+                    android:id="@+id/readingCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Чтение"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textSize="18sp"
+                    android:padding="16dp"
+                    android:background="@drawable/category_background_reading"
+                    app:layout_constraintTop_toBottomOf="@id/categoriesTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/programmingCategory"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Кнопка "Programming" -->
+                <TextView
+                    android:id="@+id/programmingCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Програм."
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:padding="16dp"
+                    android:background="@drawable/category_background_programming"
+                    app:layout_constraintTop_toBottomOf="@id/categoriesTitle"
+                    app:layout_constraintStart_toEndOf="@id/readingCategory"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="8dp" />
+
+                <!-- Кнопка "Sports" -->
+                <TextView
+                    android:id="@+id/sportsCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Спорт"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:padding="16dp"
+                    android:background="@drawable/category_background_sports"
+                    app:layout_constraintTop_toBottomOf="@id/readingCategory"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/languageCategory"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Кнопка "Language" -->
+                <TextView
+                    android:id="@+id/languageCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Язык"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:padding="16dp"
+                    android:background="@drawable/category_background_language"
+                    app:layout_constraintTop_toBottomOf="@id/programmingCategory"
+                    app:layout_constraintStart_toEndOf="@id/sportsCategory"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

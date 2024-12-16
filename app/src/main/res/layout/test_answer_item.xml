@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/answerLayout"
+        android:padding="8dp"
+        android:background="@drawable/answer_item_background">
+
+        <TextView
+            android:id="@+id/answerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Ответ"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="8dp"/>
+    </LinearLayout>
+</LinearLayout>

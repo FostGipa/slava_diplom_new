@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Slava" parent="Theme.AppCompat.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.Slava" parent="Base.Theme.Slava" />
+
+    <style name="MaterialBottomBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    </style>
+</resources>

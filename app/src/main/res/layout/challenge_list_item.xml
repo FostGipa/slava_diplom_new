@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:orientation="vertical"
+        android:background="@drawable/challenge_list_item_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/categoryImageView"
+                android:padding="10dp"
+                android:background="@drawable/white_oval"
+                android:src="@drawable/ic_read"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nameTextView"
+                    android:text="War and Piece"
+                    android:textColor="#2260FF"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:textSize="17sp"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/categoryTextView"
+                    android:layout_marginTop="5dp"
+                    android:text="Reading challenge"
+                    android:textColor="#6E7375"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textSize="14sp"
+                    android:maxLines="1"/>
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moreButton"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textSize="18sp"
+            android:text="Подробнее"/>
+    </LinearLayout>
+</LinearLayout>

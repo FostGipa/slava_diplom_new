@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SignupActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/signupBackButton"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_arrow_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="#2260FF"
+                    android:layout_centerInParent="true"
+                    android:text="Регистрация"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Полное имя"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameEditText"
+                android:textColorHint="#809CFF"
+                android:inputType="text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="Ваше полное имя"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Пароль"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#809CFF"
+                android:id="@+id/passwordEditText"
+                android:inputType="textPassword"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="Ваш пароль"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Почта"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emaiEditText"
+                android:textColorHint="#809CFF"
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="Ваша почта"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Номер телефона"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <com.vicmikhailau.maskededittext.MaskedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phoneEditText"
+                android:textColorHint="#809CFF"
+                android:inputType="phone"
+                app:mask="+7 (***) ***-**-**"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="Ваш номер телефона"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Дата рождения"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateEditText"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="#809CFF"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="Ваша дата рождения"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Регистрируясь, вы принимаете пользовательское соглашения"
+                android:textAlignment="center"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/signupButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_bg"
+                android:text="Зарегистрироваться"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Уже есть аккаунт?"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/signToLoginButton"
+                android:background="@android:color/transparent"
+                android:textAllCaps="false"
+                android:text="Войти"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#2260FF"
+                android:textSize="17sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

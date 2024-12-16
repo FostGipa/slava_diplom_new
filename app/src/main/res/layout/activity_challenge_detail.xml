@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChallengeDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/backButton"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_arrow_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="#2260FF"
+                    android:layout_centerInParent="true"
+                    android:text="Иформация"
+                    android:textSize="25sp" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/ratingButton"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_kybok" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:orientation="vertical"
+                android:background="@drawable/challenge_list_item_bg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/categoryImageView"
+                        android:padding="10dp"
+                        android:background="@drawable/white_oval"
+                        android:src="@drawable/ic_read"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nameTextView"
+                            android:text="War and Piece"
+                            android:textColor="#2260FF"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:textSize="17sp"
+                            android:maxLines="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/categoryTextView"
+                            android:layout_marginTop="5dp"
+                            android:text="Reading challenge"
+                            android:textColor="#6E7375"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:textSize="14sp"
+                            android:maxLines="1"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_user"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/userCountTextView"
+                                android:layout_marginStart="5dp"
+                                android:text="30"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:textColor="#2260FF"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dateEditText"
+                            android:layout_marginTop="10dp"
+                            android:text="11.12.2024-18.12.2024"
+                            android:textColor="#2260FF"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#2260FF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Задачи"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#2260FF"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/taskTextView"
+                android:layout_marginTop="10dp"
+                android:text="* Read the book \n*Take the test"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:lineSpacingExtra="5dp"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#2260FF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Награда"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#2260FF"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rewardTextView"
+                android:layout_marginTop="10dp"
+                android:text="You will receive the following rewards according to your rating:
+\n1st place - 1500 bonuses in the book application
+\n2nd place - 1000 bonuses in the book application
+\n3rd Place - 500 bonuses in the book application"
+                android:fontFamily="@font/ubuntu_regular"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:lineSpacingExtra="5dp"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:background="#2260FF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Описание"
+                android:fontFamily="@font/ubuntu_bold"
+                android:textColor="#2260FF"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionTextView"
+                android:layout_marginTop="10dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                android:fontFamily="@font/ubuntu_regular"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:lineSpacingExtra="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/hidenProgressLayout"
+                android:orientation="vertical">
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#2260FF"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Прогресс"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:textColor="#2260FF"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="90dp"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="20dp"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/challenge_progress_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/challengeTakeDateTextView"
+                            android:text="March 3, 2022"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:textColor="@color/black"
+                            android:textSize="19sp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/ic_progress"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/progressTaskTextView"
+                                    android:fontFamily="@font/ubuntu_medium"
+                                    android:text="Read The Book"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black"
+                                    android:textSize="19sp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Задача"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/ubuntu_regular"
+                                    android:textSize="17sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/progressBar"
+                            android:progressTint="#2260FF"
+                            android:backgroundTint="@color/white"
+                            android:progress="0"
+                            style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/resultTextView"
+                            android:text="Ваш резульат: "
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="20dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/acceptButton"
+        android:layout_marginTop="40dp"
+        android:textAllCaps="false"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ubuntu_bold"
+        android:textSize="18sp"
+        android:text="Принять челлендж"/>
+</RelativeLayout>
