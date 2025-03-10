@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Полное имя"
+                android:text="Имя"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textSize="25sp"
                 android:textColor="@color/black"/>
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="Ваше полное имя"
+                android:hint="Иван"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp"/>
 
@@ -83,7 +83,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="Ваш пароль"
+                android:hint="********"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp"/>
 
@@ -105,7 +105,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="Ваша почта"
+                android:hint="example@mail.com"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp"/>
 
@@ -128,7 +128,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="Ваш номер телефона"
+                android:hint="+7 (XXX) XXX-XX-XX"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp"/>
 
@@ -152,7 +152,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="Ваша дата рождения"
+                android:hint="01.01.2000"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="15dp"/>
 

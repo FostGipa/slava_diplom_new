@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selected_answer_background">#BCBBC7</color>
     <color name="default_answer_background">#F2F1FF</color>
+    <color name="unselected_button">#2260FF</color>
 </resources>

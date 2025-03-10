@@ -1,31 +1,26 @@
 package com.example.slava.models
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Parcelize
 @Serializable
-data class Challenge (
-    @SerialName("id")
-    val id : Int? = null,
-    @SerialName("id_Категории_челленджа")
-    val id_category : Int,
-    @SerialName("Название")
-    val name : String,
-    @SerialName("Описание")
-    val description : String,
-    @SerialName("Задание")
-    val tasks : String,
-    @SerialName("Награда")
-    val rewards : String,
-    @SerialName("Время_начала")
-    val start_date : String,
-    @SerialName("Время_окончания")
-    val end_date : String,
-    @SerialName("Дата_начала_проведения")
-    val challenge_start_date : String,
-    @SerialName("Дата_окончание_проведения")
-    val challenge_end_date : String
-) : Parcelable
+data class Challenge(
+    @SerialName("id_challenge")
+    val id_challenge: Int? = null,
+    @SerialName("id_category")
+    val id_category: Int? = null,
+    @SerialName("name")
+    val name: String,
+    @SerialName("description")
+    val description: String,
+    @SerialName("tasks")
+    val tasks: List<String>,
+    @SerialName("reward")
+    val reward: String,
+    @SerialName("challenge_start_date")
+    val challenge_start_date: String,
+    @SerialName("challenge_end_date")
+    val challenge_end_date: String,
+    @SerialName("category")
+    val category: Category? = null
+)

@@ -3,6 +3,7 @@ package com.example.slava.activities
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.slava.R
 import com.example.slava.databinding.ActivitySignupBinding
 import com.example.slava.utils.SupabaseClient
-import com.example.slava.utils.UserState
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -21,9 +21,10 @@ import java.util.Locale
 
 class SignupActivity : AppCompatActivity() {
 
+    // Инициализируем глобальные переменные
     private lateinit var binding: ActivitySignupBinding
-    private val supabaseClient: SupabaseClient = SupabaseClient()
     private val calendar = Calendar.getInstance()
+    private val supabaseClient: SupabaseClient = SupabaseClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class SignupActivity : AppCompatActivity() {
             insets
         }
 
+        // Кнопка "Назад"
         binding.signupBackButton.setOnClickListener {
             finish()
         }
@@ -62,40 +64,34 @@ class SignupActivity : AppCompatActivity() {
             }
 
             if (allFieldsFilled) {
-                try {
-                    supabaseClient.signUp(
+                val email = binding.emaiEditText.text.toString().trim()
+                val password = binding.passwordEditText.text.toString().trim()
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(this, "Введите корректный email", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                if (password.length < 6) {
+                    Toast.makeText(this, "Пароль должен содержать минимум 6 символов", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                lifecycleScope.launch {
+                    val result = supabaseClient.signup(
                         this@SignupActivity,
-                        binding.emaiEditText.text.toString(),
-                        binding.passwordEditText.text.toString(),
+                        email,
+                        password,
                         binding.nameEditText.text.toString(),
                         binding.phoneEditText.text.toString(),
                         binding.dateEditText.text.toString()
                     )
-
-                    lifecycleScope.launch {
-                        supabaseClient.userState.collect { state ->
-                            when (state) {
-                                is UserState.Success -> {
-                                    Toast.makeText(this@SignupActivity, state.message, Toast.LENGTH_SHORT)
-                                        .show()
-                                    startActivity(Intent(this@SignupActivity, MainActivity::class.java))
-                                    finish()
-                                }
-
-                                is UserState.Error -> {
-                                    Toast.makeText(this@SignupActivity, state.message, Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-
-                                UserState.Loading -> {
-                                    // Можно показать индикатор загрузки, если необходимо
-                                }
-                            }
-                        }
+                    result.onSuccess {
+                        startActivity(Intent(this@SignupActivity, MainActivity::class.java))
+                    }.onFailure { error ->
+                        Toast.makeText(this@SignupActivity, error.message, Toast.LENGTH_SHORT).show()
                     }
-                } catch (e: Exception) {
-                    Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
                 }
+
             }
         }
     }

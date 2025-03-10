@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.slava.R
 import com.example.slava.databinding.ActivityUpdatePasswordBinding
 import com.example.slava.utils.SupabaseClient
-import com.example.slava.utils.UserState
 import kotlinx.coroutines.launch
 
 class UpdatePasswordActivity : AppCompatActivity() {
@@ -35,34 +34,17 @@ class UpdatePasswordActivity : AppCompatActivity() {
         }
 
         binding.updateOkButton.setOnClickListener {
-            supabaseClient.updatePassword(binding.passwordEditText.text.toString())
-            lifecycleScope.launch {
-                supabaseClient.userState.collect { state ->
-                    when (state) {
-                        is UserState.Success -> {
-                            startActivity(
-                                Intent(
-                                    this@UpdatePasswordActivity,
-                                    LoginActivity::class.java
-                                )
-                            )
-                            finish()
-                        }
-
-                        is UserState.Error -> {
-                            Toast.makeText(
-                                this@UpdatePasswordActivity,
-                                state.message,
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
-
-                        UserState.Loading -> {
-
-                        }
+            if (binding.passwordEditText.text.toString() == binding.confirmPasswordEditText.text.toString()) {
+                lifecycleScope.launch {
+                    val result = supabaseClient.updatePassword(binding.passwordEditText.text.toString())
+                    result.onSuccess {
+                        startActivity(Intent(this@UpdatePasswordActivity, MainActivity::class.java))
+                    }.onFailure { error ->
+                        Toast.makeText(this@UpdatePasswordActivity, error.message, Toast.LENGTH_SHORT).show()
                     }
                 }
+            } else {
+                Toast.makeText(this@UpdatePasswordActivity, "Пароли не совпадают!", Toast.LENGTH_SHORT).show()
             }
         }
     }

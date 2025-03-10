@@ -68,7 +68,7 @@ class TestActivity : AppCompatActivity() {
                     showQuestion()
                 } else {
                     lifecycleScope.launch {
-                        saveTestResult(challengeId)
+//                        saveTestResult(challengeId)
                     }
                     showResults()
                 }
@@ -115,16 +115,16 @@ class TestActivity : AppCompatActivity() {
         finish()
     }
 
-    private suspend fun saveTestResult(challengeId: Int) {
-        try {
-            val userId = supabaseClient.getUserById(supabaseClient.getToken(this@TestActivity).toString())
-            supabaseClient.saveTestResult(userId!!.id!!, challengeId, score)
-            supabaseClient.updateProgress(100, challengeId, userId.id, getCurrentDate())
-            Log.d("TestActivity", "Результаты успешно сохранены.")
-        } catch (e: Exception) {
-            Log.e("TestActivity", "Ошибка сохранения результата: ${e.message}")
-        }
-    }
+//    private suspend fun saveTestResult(challengeId: Int) {
+//        try {
+//            val userId = supabaseClient.getUserById(supabaseClient.getToken(this@TestActivity).toString())
+//            supabaseClient.saveTestResult(userId!!.id_user!!, challengeId, score)
+//            supabaseClient.updateProgress(100, challengeId, userId.id_user, getCurrentDate())
+//            Log.d("TestActivity", "Результаты успешно сохранены.")
+//        } catch (e: Exception) {
+//            Log.e("TestActivity", "Ошибка сохранения результата: ${e.message}")
+//        }
+//    }
 
     fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChallengeDetailActivity">
+    tools:context=".activities.UserChallengeDetailActivity">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -225,6 +225,113 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:lineSpacingExtra="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hidenProgressLayout"
+                android:orientation="vertical">
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#2260FF"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Прогресс"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:textColor="#2260FF"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="90dp"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="20dp"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/challenge_progress_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/challengeTakeDateTextView"
+                            android:text=""
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:textColor="@color/black"
+                            android:textSize="19sp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:src="@drawable/ic_progress"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/progressTaskTextView"
+                                    android:fontFamily="@font/ubuntu_medium"
+                                    android:text="Read The Book"
+                                    android:maxLines="1"
+                                    android:textColor="@color/black"
+                                    android:textSize="19sp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Задача"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/ubuntu_regular"
+                                    android:textSize="17sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/progressBar"
+                            android:progressTint="#2260FF"
+                            android:backgroundTint="@color/white"
+                            android:progress="0"
+                            style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/resultTextView"
+                            android:text="Ваш результат: "
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="20dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

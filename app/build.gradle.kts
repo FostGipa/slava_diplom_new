@@ -58,10 +58,9 @@ dependencies {
 
     implementation(libs.auth.kt)
     implementation(libs.postgrest.kt)
+    implementation("io.github.jan-tennert.supabase:storage-kt:3.1.2")
     implementation(libs.ktor.client.android)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation (libs.kotlinx.coroutines.core)
-
-
 }

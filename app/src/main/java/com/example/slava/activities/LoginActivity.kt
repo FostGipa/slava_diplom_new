@@ -2,6 +2,7 @@ package com.example.slava.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.slava.R
 import com.example.slava.databinding.ActivityLoginBinding
 import com.example.slava.utils.SupabaseClient
-import com.example.slava.utils.UserState
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -30,42 +30,36 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        // Кнопка для перехода в "SignupActivity"
         binding.loginToSignupButton.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
             finish()
         }
 
+        // Кнопка для перехода в "ForgotPasswordActivity"
         binding.loginForgotPassButton.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
+        // Кнопка "Назад"
         binding.loginBackButton.setOnClickListener {
             finish()
         }
 
+
+        // Действие по нажатию на кнопку Логин
         binding.loginButton.setOnClickListener {
-            supabaseClient.login(this@LoginActivity,
-                binding.emailEditText.text.toString(), binding.passwordEditText.text.toString()
-            )
             lifecycleScope.launch {
-                supabaseClient.userState.collect { state ->
-                    when (state) {
-                        is UserState.Success -> {
-                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT)
-                                .show()
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                            finish()
-                        }
-
-                        is UserState.Error -> {
-                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        UserState.Loading -> {
-                            // Можно показать индикатор загрузки, если необходимо
-                        }
-                    }
+                // Вызываем метод "login" с файлика "SupabaseClient"
+                val result = supabaseClient.login(this@LoginActivity,
+                    binding.emailEditText.text.toString(), binding.passwordEditText.text.toString())
+                // Действие если успех
+                result.onSuccess {
+                    // Переход на главный экран
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                // Тут если провал
+                }.onFailure { error ->
+                    Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }

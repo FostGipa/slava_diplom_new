@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/placeTextView"
-            android:text="1"
+            android:text=""
             android:fontFamily="@font/ubuntu_bold"
             android:textColor="#2260FF"
             android:textSize="35sp"/>
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User"
+                android:text=""
                 android:id="@+id/nameTextView"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="#2260FF"
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="20"
+                android:text=""
                 android:id="@+id/scoreTextView"
                 android:fontFamily="@font/ubuntu_regular"
                 android:textColor="#2260FF"

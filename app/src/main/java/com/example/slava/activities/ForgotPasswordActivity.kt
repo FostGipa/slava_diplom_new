@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.slava.R
 import com.example.slava.databinding.ActivityForgotPasswordBinding
 import com.example.slava.utils.SupabaseClient
-import com.example.slava.utils.UserState
 import kotlinx.coroutines.launch
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -33,44 +32,23 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         binding.forgotOkButton.setOnClickListener {
             if (binding.codeLinearLayout.visibility == View.GONE) {
-                supabaseClient.sendEmailOtp(binding.emailEditText.text.toString())
                 lifecycleScope.launch {
-                    supabaseClient.userState.collect { state ->
-                        when (state) {
-                            is UserState.Success -> {
-                                binding.codeLinearLayout.visibility = View.VISIBLE
-                            }
-
-                            is UserState.Error -> {
-                                Toast.makeText(this@ForgotPasswordActivity, state.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-
-                            UserState.Loading -> {
-                                // Можно показать индикатор загрузки, если необходимо
-                            }
-                        }
+                    val result = supabaseClient.sendEmailOtp(binding.emailEditText.text.toString())
+                    result.onSuccess {
+                        binding.codeLinearLayout.visibility = View.VISIBLE
+                        Toast.makeText(this@ForgotPasswordActivity, "Код выслан на почту", Toast.LENGTH_SHORT).show()
+                    }.onFailure { error ->
+                        Toast.makeText(this@ForgotPasswordActivity, error.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
-                supabaseClient.checkOtp(binding.emailEditText.text.toString(), binding.codeEditText.text.toString())
                 lifecycleScope.launch {
-                    supabaseClient.userState.collect { state ->
-                        when (state) {
-                            is UserState.Success -> {
-                                startActivity(Intent(this@ForgotPasswordActivity, UpdatePasswordActivity::class.java))
-                                finish()
-                            }
-
-                            is UserState.Error -> {
-                                Toast.makeText(this@ForgotPasswordActivity, state.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-
-                            UserState.Loading -> {
-
-                            }
-                        }
+                    val result = supabaseClient.checkOtp(binding.codeEditText.text.toString(), binding.emailEditText.text.toString())
+                    result.onSuccess {
+                        Toast.makeText(this@ForgotPasswordActivity, "Пароль изменен", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@ForgotPasswordActivity, UpdatePasswordActivity::class.java))
+                    }.onFailure { error ->
+                        Toast.makeText(this@ForgotPasswordActivity, error.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

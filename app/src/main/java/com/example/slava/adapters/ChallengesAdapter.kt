@@ -30,9 +30,7 @@ class ChallengesAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val challenge = mList[position]
         holder.nameTextView.text = challenge.name
-        if (challenge.id_category == 1) {
-            holder.categoryTextView.text = "Чтение"
-        }
+        holder.categoryTextView.text = challenge.category?.name
         holder.categoryImageView.setImageResource(R.drawable.ic_read)
 
         // Устанавливаем обработчик нажатий
@@ -53,9 +51,9 @@ class ChallengesAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<Challenge>) {
+    fun updateData(newChallenges: MutableList<Challenge>) {
         mList.clear()
-        mList.addAll(newData)
+        mList.addAll(newChallenges)
         notifyDataSetChanged()
     }
 }

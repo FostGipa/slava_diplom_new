@@ -1,24 +1,24 @@
 package com.example.slava.utils
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.slava.exceptions.translateError
 import com.example.slava.models.Answer
 import com.example.slava.models.Challenge
-import com.example.slava.models.Progress
 import com.example.slava.models.Question
 import com.example.slava.models.QuestionWithAnswers
 import com.example.slava.models.Rating
 import com.example.slava.models.RatingItem
 import com.example.slava.models.RatingWithDetails
 import com.example.slava.models.User
-import com.example.slava.models.UserChallengeWithDetails
-import com.example.slava.models.UserChallenges
+import com.example.slava.models.UserChallenge
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.auth.OtpType
 import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.exception.AuthRestException
 import io.github.jan.supabase.auth.providers.builtin.Email
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -27,23 +27,15 @@ import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Count
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.serializer.KotlinXSerializer
+import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.storage
+import io.github.jan.supabase.storage.update
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
 
 class SupabaseClient : ViewModel() {
-
-    private val _userState = MutableStateFlow<UserState>(UserState.Loading)
-    val userState: StateFlow<UserState> get() = _userState
-
-    private val _challenges = MutableStateFlow<List<Challenge>>(emptyList())
-    val challenges: StateFlow<List<Challenge>> get() = _challenges
-
-    private val _activeChallenges = MutableStateFlow<List<Challenge>>(emptyList())
-    val activeChallenges: StateFlow<List<Challenge>> get() = _activeChallenges
 
     private val _ratingItems = MutableStateFlow<List<RatingItem>>(emptyList())
     val ratingItems: StateFlow<List<RatingItem>> get() = _ratingItems
@@ -54,147 +46,371 @@ class SupabaseClient : ViewModel() {
     ) {
         install(Auth)
         install(Postgrest)
+        install(Storage)
         defaultSerializer = KotlinXSerializer(Json)
     }
 
-    fun signUp(
+    // Авторизация
+    suspend fun login(
+        context: Context,
+        userEmail: String,
+        userPassword: String
+    ): Result<Boolean> {
+        return try {
+            supabase.auth.signInWith(Email) {
+                email = userEmail
+                password = userPassword
+            }
+            saveToken(context)
+            Result.success(true)
+        } catch (e: AuthRestException) {
+            val errorMessage = translateError(e.errorCode?.value, e.message)
+            Result.failure(Exception(errorMessage))
+        } catch (e: Exception) {
+            Result.failure(Exception("Неизвестная ошибка: ${e.message}"))
+        }
+    }
+
+    // Регистрация
+    suspend fun signup(
         context: Context,
         userEmail: String,
         userPassword: String,
         userFullName: String,
         userPhone: String,
         userDate: String
-    ) {
-        viewModelScope.launch {
-            try {
-                supabase.auth.signUpWith(Email) {
-                    email = userEmail
-                    password = userPassword
-                    data = buildJsonObject {
-                        put("full_name", userFullName)
-                        put("phone_number", userPhone)
-                        put("date_of_birth", userDate)
-                    }
-                }
-                val user = User(
-                    uid = supabase.auth.currentUserOrNull()!!.id,
-                    name = userFullName,
-                    phone = userPhone,
-                    date_of_birth = userDate
-                )
-                supabase.from("User").insert(user)
-                saveToken(context)
-                _userState.value = UserState.Success("Успешная регистрация!")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
+    ): Result<Boolean> {
+        return try {
+            supabase.auth.signUpWith(Email) {
+                email = userEmail
+                password = userPassword
             }
+            val user = User(
+                uid = supabase.auth.currentUserOrNull()!!.id,
+                name = userFullName,
+                phone = userPhone,
+                date_of_birth = userDate,
+                role = "Пользователь"
+            )
+            supabase.from("users").insert(user)
+            saveToken(context)
+            Result.success(true)
+        } catch (e: AuthRestException) {
+            val errorMessage = translateError(e.errorCode?.value, e.message)
+            Result.failure(Exception(errorMessage))
+        } catch (e: Exception) {
+            Result.failure(Exception("Неизвестная ошибка: ${e.message}"))
         }
     }
 
-    fun login(
-        context: Context,
-        userEmail: String,
-        userPassword: String
-    ) {
-        viewModelScope.launch {
-            try {
-                supabase.auth.signInWith(Email) {
-                    email = userEmail
-                    password = userPassword
-                }
-                saveToken(context)
-                _userState.value = UserState.Success("Успешная авторизация!")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
-            }
-        }
-    }
-
-    fun sendEmailOtp(
+    // Отправка кода на почту
+    suspend fun sendEmailOtp(
         userEmail: String
-    ) {
-        viewModelScope.launch {
-            try {
-                supabase.auth.resetPasswordForEmail(userEmail)
-                _userState.value = UserState.Success("Успешно")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
-            }
+    ): Result<Boolean> {
+        return try {
+            supabase.auth.resetPasswordForEmail(userEmail)
+            Result.success(true)
+        } catch (e: AuthRestException) {
+            val errorMessage = translateError(e.errorCode?.value, e.message)
+            Result.failure(Exception(errorMessage))
+        } catch (e: Exception) {
+            Result.failure(Exception("Неизвестная ошибка: ${e.message}"))
         }
     }
 
-    fun checkOtp(
+    // Проверка кода
+    suspend fun checkOtp(
         code: String,
         userEmail: String
-    ) {
-        viewModelScope.launch {
-            try {
-                supabase.auth.verifyEmailOtp(
-                    type = OtpType.Email.RECOVERY,
-                    email = userEmail,
-                    token = code
-                )
-                _userState.value = UserState.Success("Успешно")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
-            }
+    ): Result<Boolean> {
+        return try {
+            supabase.auth.verifyEmailOtp(
+                type = OtpType.Email.RECOVERY,
+                email = userEmail,
+                token = code
+            )
+            Result.success(true)
+        } catch (e: AuthRestException) {
+            val errorMessage = translateError(e.errorCode?.value, e.message)
+            Result.failure(Exception(errorMessage))
+        } catch (e: Exception) {
+            Result.failure(Exception("Неизвестная ошибка: ${e.message}"))
         }
     }
 
-    fun updatePassword(userPassword: String) {
-        viewModelScope.launch {
-            try {
-                supabase.auth.updateUser {
-                    password = userPassword
-                }
-                _userState.value = UserState.Success("Успешно")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
+    // Обновление пароля
+    suspend fun updatePassword(userPassword: String): Result<Boolean> {
+        return try {
+            supabase.auth.updateUser {
+                password = userPassword
             }
+            Result.success(true)
+        } catch (e: AuthRestException) {
+            val errorMessage = translateError(e.errorCode?.value, e.message)
+            Result.failure(Exception(errorMessage))
+        } catch (e: Exception) {
+            Result.failure(Exception("Неизвестная ошибка: ${e.message}"))
         }
     }
 
+    // Сохранение токена
     private fun saveToken(context: Context) {
-        viewModelScope.launch {
-            val accessToken = supabase.auth.currentUserOrNull()!!.id
-            val sharedPref = SharedPreferenceHelper(context)
-            sharedPref.saveStringData("accessToken", accessToken)
-        }
+        val accessToken = supabase.auth.currentUserOrNull()?.id
+        val sharedPref = SharedPreferenceHelper(context)
+        sharedPref.saveStringData("accessToken", accessToken)
     }
 
+    // Получение токена
     fun getToken(context: Context): String? {
         val sharedPref = SharedPreferenceHelper(context)
         return sharedPref.getStringData("accessToken")
     }
 
-    suspend fun getUserById(userId: String): User? {
+    suspend fun getUserSession(jwtToken: String) {
+        val session = supabase.auth.currentSessionOrNull()
+        Log.e("session", session.toString())
+        supabase.auth.retrieveUser(jwtToken)
+        supabase.auth.refreshCurrentSession()
+    }
+
+    // Получение пользователя
+    suspend fun getUserById(userId: String): Result<User> {
         return try {
-            val response = supabase.from("User")
-                .select() {
+            val response = supabase.from("users")
+                .select {
                     filter {
                         eq("uid", userId)
                     }
                 }
                 .decodeSingle<User>()
 
-            response
+            Result.success(response)
         } catch (e: Exception) {
-            println("Ошибка получения пользователя: ${e.message}")
-            null
+            Result.failure(e)
         }
     }
 
-    fun fetchChallenges() {
-        viewModelScope.launch {
-            try {
-                val response = supabase.from("Challenge").select().decodeList<Challenge>()
-                _challenges.value = response
-                _userState.value = UserState.Success("Успешно")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
+    // Получение всех челленджей
+    suspend fun fetchAllChallenges(challengeId: Int? = null): Result<List<Challenge>> {
+        return try {
+            val columns = Columns.raw("""
+                id_challenge,
+                category (
+                    id_category,
+                    name
+                ),
+                name,
+                description,
+                tasks,
+                reward,
+                challenge_start_date,
+                challenge_end_date
+            """.trimIndent())
+            var response: List<Challenge> = if (challengeId != null) {
+                supabase.from("challenge").select(columns) {
+                    filter {
+                        eq("id_challenge", challengeId)
+                    }
+                }.decodeList<Challenge>()
+            } else {
+                supabase.from("challenge").select(columns).decodeList<Challenge>()
             }
+
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
+
+    // Получение деталей челленджа
+    suspend fun fetchChallenge(challengeId: Int): Result<Challenge> {
+        return try {
+            val columns = Columns.raw("""
+                id_challenge,
+                category (
+                    id_category,
+                    name
+                ),
+                name,
+                description,
+                tasks,
+                reward,
+                challenge_start_date,
+                challenge_end_date
+            """.trimIndent())
+            val response = supabase.from("challenge").select(columns) {
+                filter {
+                    eq("id_challenge", challengeId)
+                }
+            }.decodeSingle<Challenge>()
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Получение активных пользовательских челленджей
+    suspend fun fetchAllUserAcceptedChallenges(userId: Int): Result<List<UserChallenge>> {
+        return try {
+            val columns = Columns.raw("""
+                id_user_challenge,
+                users (
+                    id_user,
+                    uid,
+                    name,
+                    phone,
+                    date_of_birth,
+                    password,
+                    role
+                ),
+                challenge (
+                    id_challenge,
+                    category (
+                        id_category,
+                        name
+                    ),
+                    name,
+                    description,
+                    tasks,
+                    reward,
+                    challenge_start_date,
+                    challenge_end_date
+                ),
+                user_start_date,
+                step,
+                progress
+            """.trimIndent())
+            val response: List<UserChallenge> = supabase.from("user_challenge").select(columns) {
+                filter {
+                    eq("id_user", userId)
+                }
+            }.decodeList<UserChallenge>()
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Получение деталей активного пользовательского челленджа
+    suspend fun fetchUserAcceptedChallenge(challengeId: Int, userId: Int): Result<UserChallenge> {
+        return try {
+            val columns = Columns.raw("""
+                id_user_challenge,
+                users (
+                    id_user,
+                    uid,
+                    name,
+                    phone,
+                    date_of_birth,
+                    password,
+                    role
+                ),
+                challenge (
+                    id_challenge,
+                    category (
+                        id_category,
+                        name
+                    ),
+                    name,
+                    description,
+                    tasks,
+                    reward,
+                    challenge_start_date,
+                    challenge_end_date
+                ),
+                user_start_date,
+                step,
+                progress
+            """.trimIndent())
+            val response = supabase.from("user_challenge").select(columns) {
+                filter {
+                    eq("id_user", userId)
+                    eq("id_challenge", challengeId)
+                }
+            }.decodeSingle<UserChallenge>()
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Принятие челленджа
+    suspend fun insertUserChallenge(userId: Int, challengeId: Int, step: String, progress: Int): Result<Boolean> {
+        return try {
+            val data = UserChallenge(
+                id_user = userId,
+                id_challenge = challengeId,
+                step = step,
+                progress = progress,
+            )
+            supabase.from("user_challenge").insert(data)
+            Result.success(true)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Загрузка аватарки пользователя на сервер
+    suspend fun uploadUserAvatar(imageUri: Uri, uid: String): Result<Boolean> {
+        return try {
+            val bucket = supabase.storage.from("UsersPhoto")
+            bucket.update("${uid}.jpg", imageUri)
+            Result.success(true)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Загрузка аватарки пользователя с сервера
+    suspend fun downloadUserAvatar(uid: String): Result<ByteArray> {
+        return try {
+            val bucket = supabase.storage.from("UsersPhoto")
+            val bytes = bucket.downloadAuthenticated("${uid}.jpg")
+            Result.success(bytes)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Обновление данных пользователя
+    suspend fun updateUser(userId: Int, name: String, phone: String, date: String, userPassword: String? = null): Result<Boolean> {
+        return try {
+            supabase.from("users").update({
+                set("name", name)
+                set("phone", phone)
+                set("date_of_birth", date)
+            }) {
+                filter {
+                    eq("id_user", userId)
+                }
+            }
+            if (!userPassword.isNullOrEmpty()) {
+                supabase.auth.updateUser {
+                    password = userPassword
+                }
+            }
+            Result.success(true)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Получение кол-ва пользователей, которые приняли челлендж
+    suspend fun getChallengeUsers(challengeId: Int) : Result<Long> {
+        return try {
+            val count = supabase.from("user_challenge")
+                .select {
+                    count(Count.EXACT)
+                    filter {
+                        eq("id_challenge", challengeId)
+                    }
+                }.countOrNull()!!
+            Result.success(count)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     fun fetchRating(challengeId: Int) {
         viewModelScope.launch {
@@ -203,7 +419,7 @@ class SupabaseClient : ViewModel() {
                 id,
                 id_challenge,
                 score,
-                User(
+                users(
                     id,
                     uid,
                     name,
@@ -231,7 +447,7 @@ class SupabaseClient : ViewModel() {
         }
     }
 
-    suspend fun getTotalScore(userId: Int) : Int {
+    suspend fun getTotalScore(userId: Int?) : Int {
         return try {
             val data = Columns.raw("""
                 id_challenge,
@@ -240,7 +456,7 @@ class SupabaseClient : ViewModel() {
             """.trimIndent())
             val response = supabase.from("Rating")
                 .select(data) {
-                    filter { eq("id_user", userId) }
+                    filter { eq("id_user", userId.toString()) }
                 }
                 .decodeList<Rating>()
 
@@ -249,92 +465,6 @@ class SupabaseClient : ViewModel() {
         } catch (e: Exception) {
             Log.e("123", e.message.toString())
             0
-        }
-    }
-
-    suspend fun getChallengeUsers(challengeId: Int) : Long {
-        return try {
-            val count = supabase.from("UserChallenges")
-                .select {
-                    count(Count.EXACT)
-                    filter {
-                        eq("id_challenge", challengeId)
-                    }
-                }
-                .countOrNull()!!
-            count
-        } catch (e: Exception) {
-            Log.e("123", e.message.toString())
-            0
-        }
-    }
-
-    fun insertUserChallenge(userId: Int, challengeId: Int) {
-        viewModelScope.launch {
-            try {
-                Log.e("123", userId.toString())
-                val data = UserChallenges(id_user = userId, id_challenge = challengeId)
-                supabase.from("UserChallenges").insert(data)
-                _userState.value = UserState.Success("Успешно")
-            } catch (e: Exception) {
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
-            }
-        }
-    }
-
-    fun fetchAcceptedChallenges(userId: Int) {
-        viewModelScope.launch {
-            try {
-                val columns = Columns.raw(
-                    """
-                    id,
-                    id_user,
-                    Challenge(
-                        id,
-                        id_Категории_челленджа,
-                        Название,
-                        Описание,
-                        Задание,
-                        Награда,
-                        Время_начала,
-                        Время_окончания,
-                        Дата_начала_проведения,
-                        Дата_окончание_проведения
-                    )
-                """.trimIndent()
-                )
-                val challenges = supabase.from("UserChallenges")
-                    .select(columns) {
-                        filter { eq("id_user", userId) }
-                    }
-                    .decodeList<UserChallengeWithDetails>()
-
-                Log.d("SupabaseClient", "Полученные вызовы: ${challenges.size}")
-
-                _activeChallenges.value = challenges.map { it.challenge }
-                _userState.value = UserState.Success("Вызовы получены!")
-            } catch (e: Exception) {
-                Log.e("123", e.message.toString())
-                _userState.value = UserState.Error("Ошибка: ${e.message}")
-            }
-        }
-    }
-
-    suspend fun isChallengeActive(userId: Int, challengeId: Int): Boolean {
-        return try {
-            val response = supabase.from("UserChallenges")
-                .select() {
-                    filter {
-                        eq("id_user", userId)
-                        eq("id_challenge", challengeId)
-                    }
-                }
-                .decodeSingle<UserChallenges>()
-
-            true // Если запись существует, значит челлендж активен
-        } catch (e: Exception) {
-            println("Ошибка проверки активности челленджа: ${e.message}")
-            false
         }
     }
 
@@ -372,54 +502,21 @@ class SupabaseClient : ViewModel() {
         }
     }
 
-    suspend fun updateUser(context: Context, userId : Int, name: String, phone: String, date: String) {
-        try {
-            supabase.from("User").update({
-                set("name", name)
-                set("phone", phone)
-                set("date_of_birth", date)
-            }) {
-                filter {
-                    eq("id", userId)
+    suspend fun getUserResults(userId: Int, challengeId: Int) : Int{
+        return try {
+            val response = supabase.from("Rating")
+                .select {
+                    filter {
+                        eq("id_user", userId)
+                        eq("id_challenge", challengeId)
+                    }
                 }
-            }
-            Toast.makeText(context, "Данные обновлены!", Toast.LENGTH_SHORT).show()
+                .decodeSingle<Rating>()
+            response.score
         } catch (e: Exception) {
             Log.e("123", e.message.toString())
+            0
         }
-    }
-
-    suspend fun getChallengeProgress(userId: Int, challengeId: Int): Progress? {
-        return try {
-            val response = supabase.from("Progress")
-                .select() {
-                    filter { eq("id_user", userId) }
-                    filter { eq("id_challenge", challengeId) }
-                }
-                .decodeSingle<Progress>()
-
-            response
-        } catch (e: Exception) {
-            Log.e("SupabaseClient", "Ошибка получения прогресса: ${e.message}")
-            null
-        }
-    }
-
-    suspend fun insertProgress(id_challenge: Int, date: String, steps: String, progress: Int, id_user: Int) {
-        try {
-            val data = Progress(
-                id_challenge = id_challenge,
-                date = date,
-                steps = steps,
-                progress = progress,
-                id_user = id_user
-            )
-            supabase.from("Progress").insert(data)
-        } catch (e: Exception) {
-            Log.e("SupabaseClient", "Ошибка сохранения данных: ${e.message}")
-            throw e
-        }
-
     }
 
     suspend fun updateProgress(progress: Int, challengeId: Int, userId: Int, date: String) {

@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.slava.activities.ChallengeDetailActivity
+import com.example.slava.activities.LoginActivity
 import com.example.slava.activities.PartnersActivity
 import com.example.slava.adapters.ActiveChallengeAdapter
 import com.example.slava.databinding.FragmentHomeBinding
@@ -40,15 +42,32 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = ActiveChallengeAdapter(challenges) { challenge ->
-            openChallengeDetail(challenge)
+
         }
         binding.activeChallengeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.activeChallengeRecyclerView.adapter = adapter
+        binding.readingCategory.setOnClickListener{
+            Toast.makeText(requireContext(), "В разработке.", Toast.LENGTH_SHORT).show()
+        }
+        binding.programmingCategory.setOnClickListener{
+            Toast.makeText(requireContext(), "В разработке.", Toast.LENGTH_SHORT).show()
+        }
+        binding.sportsCategory.setOnClickListener{
+            Toast.makeText(requireContext(), "В разработке.", Toast.LENGTH_SHORT).show()
+        }
+        binding.languageCategory.setOnClickListener{
+            Toast.makeText(requireContext(), "В разработке.", Toast.LENGTH_SHORT).show()
+        }
 
         try {
             lifecycleScope.launch {
-                val userId = supabaseClient.getUserById(supabaseClient.getToken(requireContext()).toString())
-                binding.scoreTextView.text = supabaseClient.getTotalScore(userId!!.id!!).toString()
+                val response = supabaseClient.getUserById(supabaseClient.getToken(requireContext()).toString())
+                response.onSuccess { user ->
+                    binding.nameTextView.text = "Привет, ${user.name}"
+                    binding.scoreTextView.text = supabaseClient.getTotalScore(user.id_user).toString()
+                }.onFailure { error ->
+                    Toast.makeText(requireContext(), "Ошибка получения пользователя: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         } catch (e: Exception) {
             Log.e("123", e.message.toString())
@@ -57,45 +76,5 @@ class HomeFragment : Fragment() {
         binding.parthnersButton.setOnClickListener{
             startActivity(Intent(requireContext(), PartnersActivity::class.java))
         }
-
-        lifecycleScope.launch {
-            val userId = getUserIdFromPreferences()
-            Log.d("HomeFragment", "UserID: $userId")
-            supabaseClient.fetchAcceptedChallenges(userId)
-            observeChallenges()
-        }
     }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun observeChallenges() {
-        lifecycleScope.launch {
-            supabaseClient.activeChallenges.collect { challengeList ->
-                Log.d("HomeFragment", "Challenges получены: ${challengeList.size}")
-                adapter.updateData(challengeList.toMutableList())
-            }
-        }
-    }
-
-    private fun openChallengeDetail(challenge: Challenge) {
-        val intent = Intent(requireContext(), ChallengeDetailActivity::class.java).apply {
-            putExtra("challenge", challenge)
-        }
-        startActivity(intent)
-    }
-
-    suspend fun getUserIdFromPreferences(): Int {
-        val token = supabaseClient.getToken(requireActivity().baseContext)
-        var userId: Int = 0
-
-        if (token != null) {
-            try {
-                val user = supabaseClient.getUserById(token)
-                userId = user?.id ?: 0
-            } catch (e: Exception) {
-                Log.e("123", e.message.toString())
-            }
-        }
-        return userId
-    }
-
 }
