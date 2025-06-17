@@ -1,4 +1,4 @@
-package com.example.slava
+package com.example.slava.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,11 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.slava.R
 import com.example.slava.activities.ChallengeDetailActivity
 import com.example.slava.activities.UserChallengeDetailActivity
 import com.example.slava.adapters.ChallengesAdapter
@@ -30,6 +34,7 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
     private val supabaseClient: SupabaseClient = SupabaseClient()
     private lateinit var activeAdapter: ChallengesAdapter
     private lateinit var inactiveAdapter: ChallengesAdapter
+    private var isShowingActive = false
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -39,12 +44,54 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
         _binding = FragmentChallengeBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val categories = mutableListOf("Выберите категорию", "Чтение", "Программирование", "Спорт", "Языки")
+
+        val adapter = object : ArrayAdapter<String>(requireContext(), R.layout.spinner_item, categories) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as TextView
+                view.setTextColor(ContextCompat.getColor(context, R.color.black))
+                view.textSize = 16f
+                view.setPadding(20, 20, 20, 20)
+                return view
+            }
+        }
+
+        binding.categorySpinner.adapter = adapter
+
+        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedCategory = if (position == 0) null else categories[position]
+                if (position == 0) {
+                    binding.categorySpinner.setBackgroundResource(R.drawable.category_unselected)
+                } else {
+                    binding.categorySpinner.setBackgroundResource(R.drawable.button_bg)
+                }
+
+                (view as? TextView)?.setTextColor(
+                    ContextCompat.getColor(requireContext(), if (position == 0) R.color.unselected_button else R.color.white)
+                )
+
+                loadChallenges(false, selectedCategory)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                binding.categorySpinner.setBackgroundResource(R.drawable.category_unselected)
+            }
+        }
+
+        val category = arguments?.getString("category")
+
+        if (category != null && categories.contains(category)) {
+            val position = categories.indexOf(category)
+            binding.categorySpinner.setSelection(position)
+        }
+
         setupRecyclerViews()
         setupButtons()
-        loadChallenges(false)
 
         return view
     }
+
 
     private fun setupRecyclerViews() {
         activeAdapter = ChallengesAdapter(mutableListOf(), requireContext(), this)
@@ -58,7 +105,7 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
         lifecycleScope.launch {
             val response = supabaseClient.getUserById(supabaseClient.getToken(requireContext()).toString())
             response.onSuccess { user ->
-                val activeChallenges = supabaseClient.fetchAllUserAcceptedChallenges(user?.id_user!!).getOrElse {
+                val activeChallenges = supabaseClient.fetchAllUserAcceptedChallenges(user.id_user!!).getOrElse {
                     Log.e("123", "Ошибка загрузки активных челленджей: ${it.message}")
                     return@launch
                 }
@@ -80,9 +127,15 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
     }
 
     private fun setupButtons() {
-        binding.availableButton.setOnClickListener { updateUI(false) }
-        binding.activeButton.setOnClickListener { updateUI(true) }
-        updateUIButtonState(false)
+        binding.availableButton.setOnClickListener {
+            isShowingActive = false
+            updateUI(false)
+        }
+        binding.activeButton.setOnClickListener {
+            isShowingActive = true
+            updateUI(true)
+        }
+        updateUIButtonState(isShowingActive)
     }
 
     private fun updateUI(isActive: Boolean) {
@@ -97,46 +150,39 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
         binding.availableButton.setTextColor(ContextCompat.getColor(requireContext(), if (isActive) R.color.unselected_button else android.R.color.white))
     }
 
-    private fun loadChallenges(showActive: Boolean) {
+    private fun loadChallenges(showActive: Boolean, category: String? = null) {
         binding.progressBar.visibility = View.VISIBLE
         binding.challengeRecyclerView.visibility = View.GONE
         lifecycleScope.launch {
             try {
                 val response = supabaseClient.getUserById(supabaseClient.getToken(requireContext()).toString())
-                response.onSuccess { user->
-                    // Загружаем активные челленджи пользователя
+                response.onSuccess { user ->
                     val activeChallengeResult = supabaseClient.fetchAllUserAcceptedChallenges(user.id_user!!)
                     val activeChallenge = activeChallengeResult.getOrElse {
                         Log.e("123", "Ошибка загрузки активных челленджей: ${it.message}")
                         return@launch
                     }
 
-                    // Извлекаем только id челленджей из активных
                     val activeChallengeIds = activeChallenge.map { it.challenge?.id_challenge }
-                    // Проверяем, что список активных челленджей не пустой
-                    if (activeChallengeIds.isEmpty()) {
-                        Toast.makeText(requireContext(), "Активные челленджи не найдены", Toast.LENGTH_SHORT).show()
-                    }
-
-                    // Загружаем все челленджи
                     val allChallengesResult = supabaseClient.fetchAllChallenges()
                     val allChallenges = allChallengesResult.getOrElse {
                         Log.e("123", "Ошибка загрузки всех челленджей: ${it.message}")
                         return@launch
                     }
 
-                    // Фильтруем челленджи в зависимости от того, активные они или нет
-                    val challengesToShow = if (showActive) {
-                        // Показываем только активные челленджи (те, чьи id есть в activeChallengeIds)
+                    var challengesToShow = if (showActive) {
                         allChallenges.filter { it.id_challenge in activeChallengeIds }
                     } else {
-                        // Показываем неактивные челленджи (те, чьи id нет в activeChallengeIds)
                         allChallenges.filterNot { it.id_challenge in activeChallengeIds }
                     }
 
-                    // Обновляем RecyclerView с отфильтрованными челленджами
-                    val adapter = if (showActive) activeAdapter else inactiveAdapter
+                    // Фильтрация по категории
+                    category?.let {
+                        challengesToShow = challengesToShow.filter { it.category?.name == category }
+                    }
+
                     withContext(Dispatchers.Main) {
+                        val adapter = if (showActive) activeAdapter else inactiveAdapter
                         binding.challengeRecyclerView.adapter = adapter
                         adapter.updateData(challengesToShow.toMutableList())
                     }
@@ -153,6 +199,11 @@ class ChallengeFragment : Fragment(), ChallengeClickListener {
 
     override fun onResume() {
         super.onResume()
-        loadChallenges(false)
+        val category = arguments?.getString("category")
+        if (category == "") {
+            loadChallenges(isShowingActive)
+        } else {
+            loadChallenges(isShowingActive, category)
+        }
     }
 }

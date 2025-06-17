@@ -1,4 +1,4 @@
-package com.example.slava
+package com.example.slava.fragments
 
 import android.app.DatePickerDialog
 import android.net.Uri
@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.slava.R
 import com.example.slava.databinding.FragmentProfileBinding
 import com.example.slava.utils.SupabaseClient
 import kotlinx.coroutines.launch
@@ -57,9 +58,12 @@ class ProfileFragment : Fragment() {
                     val result = supabaseClient.uploadUserAvatar(uri, currentUID.toString())
                     result.onSuccess { imageUrl ->
                         Toast.makeText(requireContext(), "Фото обновлено!", Toast.LENGTH_SHORT).show()
+                        Glide.with(requireContext()).clear(binding.profileImageView)
                         Glide.with(requireContext())
                             .load(uri)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)
                             .into(binding.profileImageView)
                     }.onFailure {
                         Toast.makeText(requireContext(), "Ошибка загрузки: ${it.message}", Toast.LENGTH_SHORT).show()
@@ -89,14 +93,18 @@ class ProfileFragment : Fragment() {
             response.onSuccess { user ->
                 currentUserId = user.id_user
                 currentUID = user.uid
-                val response2 = supabaseClient.downloadUserAvatar(user.uid)
+                val response2 = supabaseClient.downloadUserAvatar(user.uid.toString())
                 response2.onSuccess { img ->
+                    Glide.with(requireContext()).clear(binding.profileImageView)
                     Glide.with(requireContext())
                         .load(img)
                         .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE)
                         .into(binding.profileImageView)
                 }.onFailure { error ->
-                    Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+                    Log.d("123", error.message.toString())
+                    Toast.makeText(requireContext(), "Ошибка: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
 
                 binding.apply {
@@ -189,5 +197,15 @@ class ProfileFragment : Fragment() {
     private fun updateDateInView() {
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
         binding.dateEditText.setText(simpleDateFormat.format(calendar.time))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadUserData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadUserData()
     }
 }

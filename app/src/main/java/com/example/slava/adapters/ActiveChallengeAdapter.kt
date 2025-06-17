@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.slava.models.Challenge
 import com.example.slava.R
+import com.example.slava.models.UserChallenge
 
-class ActiveChallengeAdapter(var mList : MutableList<Challenge>, private val onChallengeClick: (Challenge) -> Unit) : RecyclerView.Adapter<ActiveChallengeAdapter.ViewHolder>() {
+class ActiveChallengeAdapter(var mList : MutableList<UserChallenge>, private val onChallengeClick: (UserChallenge) -> Unit) : RecyclerView.Adapter<ActiveChallengeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -19,10 +20,8 @@ class ActiveChallengeAdapter(var mList : MutableList<Challenge>, private val onC
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = mList[position].name
-        if (mList[position].id_category == 1) {
-            holder.category.text = "Чтение"
-        }
+        holder.name.text = mList[position].challenge?.name
+        holder.category.text = mList[position].challenge?.category?.name
         holder.itemView.setOnClickListener{
             onChallengeClick(mList[position])
         }
@@ -38,7 +37,7 @@ class ActiveChallengeAdapter(var mList : MutableList<Challenge>, private val onC
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newChallenges: MutableList<Challenge>) {
+    fun updateData(newChallenges: MutableList<UserChallenge>) {
         mList = newChallenges
         notifyDataSetChanged()
     }

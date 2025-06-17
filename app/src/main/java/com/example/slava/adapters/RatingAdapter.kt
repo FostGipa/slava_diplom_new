@@ -10,9 +10,10 @@ import com.example.slava.models.Rating
 import com.example.slava.R
 import com.example.slava.models.Challenge
 import com.example.slava.models.RatingItem
+import com.example.slava.models.UserChallenge
 import com.example.slava.utils.SupabaseClient
 
-class RatingAdapter(val mList: MutableList<RatingItem>) : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
+class RatingAdapter(var mList: MutableList<UserChallenge>) : RecyclerView.Adapter<RatingAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,8 +26,8 @@ class RatingAdapter(val mList: MutableList<RatingItem>) : RecyclerView.Adapter<R
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RatingAdapter.ViewHolder, position: Int) {
         val rating = mList[position]
-        holder.scoreTextView.text = "Количество очков: ${rating.score}"
-        holder.nameTextView.text = rating.name.toString()
+        holder.scoreTextView.text = "Количество очков: ${rating.pts}"
+        holder.nameTextView.text = rating.user?.name
         holder.placeTextView.text = "${position + 1}"
 
     }
@@ -42,9 +43,8 @@ class RatingAdapter(val mList: MutableList<RatingItem>) : RecyclerView.Adapter<R
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<RatingItem>) {
-        mList.clear()
-        mList.addAll(newData)
+    fun updateData(newRating: MutableList<UserChallenge>) {
+        mList = newRating
         notifyDataSetChanged()
     }
 }

@@ -59,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 // Тут если провал
                 }.onFailure { error ->
+                    Log.e("123", error.message.toString())
                     Toast.makeText(this@LoginActivity, error.message, Toast.LENGTH_SHORT).show()
                 }
             }

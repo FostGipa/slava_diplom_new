@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="20dp">
+    android:id="@+id/answerLayout"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="6dp"
+    cardView:cardUseCompatPadding="true"
+    cardView:cardPreventCornerOverlap="false"
+    cardView:cardCornerRadius="16dp"
+    cardView:cardElevation="4dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/answerLayout"
-        android:padding="8dp"
-        android:background="@drawable/answer_item_background">
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/answerLetter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:background="@drawable/bg_circle"
+            android:text="A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/answerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:text="Answer text"
+            android:textSize="18sp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Ответ"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:padding="8dp"/>
-    </LinearLayout>
-</LinearLayout>
+            android:textColor="@color/black" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+

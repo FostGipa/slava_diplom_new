@@ -6,16 +6,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.slava.R
-import com.example.slava.databinding.ActivityTestsListBinding
+import com.example.slava.databinding.ActivityAddFileResultBinding
+import com.example.slava.databinding.ActivityTaskResultBinding
 
-class TestsListActivity : AppCompatActivity() {
+class AddFileResultActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTestsListBinding
+
+    lateinit var binding: ActivityAddFileResultBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityTestsListBinding.inflate(layoutInflater)
+        binding = ActivityAddFileResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -23,6 +25,6 @@ class TestsListActivity : AppCompatActivity() {
             insets
         }
 
-
+        binding.endButton.setOnClickListener { finish() }
     }
 }

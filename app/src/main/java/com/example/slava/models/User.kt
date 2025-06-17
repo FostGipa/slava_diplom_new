@@ -8,7 +8,7 @@ data class User(
     @SerialName("id_user")
     val id_user : Int? = null,
     @SerialName("uid")
-    val uid : String,
+    val uid : String? = "",
     @SerialName("name")
     val name : String,
     @SerialName("phone")
@@ -18,5 +18,7 @@ data class User(
     @SerialName("password")
     val password: String? = null,
     @SerialName("role")
-    val role: String
+    val role: String,
+    @SerialName("user_pts")
+    val user_pts: Int
 )

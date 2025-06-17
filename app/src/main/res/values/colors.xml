@@ -5,4 +5,7 @@
     <color name="selected_answer_background">#BCBBC7</color>
     <color name="default_answer_background">#F2F1FF</color>
     <color name="unselected_button">#2260FF</color>
+    <color name="green">#3EFF3A</color>
+    <color name="red">#EF084B</color>
+    <color name="light_gray">#F2F1FF</color>
 </resources>

@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.slava.R
 import com.example.slava.databinding.ActivityChallengeDetailBinding
 import com.example.slava.utils.SupabaseClient
 import kotlinx.coroutines.launch
@@ -20,8 +24,14 @@ class ChallengeDetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityChallengeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         val challengeId = intent.getIntExtra("challengeId", 0)
 
@@ -52,7 +62,6 @@ class ChallengeDetailActivity : AppCompatActivity() {
                 Log.e("ChallengeDetail", "Error fetching challenge: ${error.message}")
             }
             val count = supabaseClient.getChallengeUsers(challengeId).getOrElse {
-                Log.e("ChallengeDetail", it.message.toString())
                 0 // Устанавливаем 0 в случае ошибки
             }
             binding.userCountTextView.text = count.toString()

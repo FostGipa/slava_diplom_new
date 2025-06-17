@@ -22,5 +22,11 @@ data class Challenge(
     @SerialName("challenge_end_date")
     val challenge_end_date: String,
     @SerialName("category")
-    val category: Category? = null
+    val category: Category? = null,
+    @SerialName("status")
+    val status: String? = "",
+    @SerialName("comment")
+    val comment: String? = "",
+    @SerialName("id_user")
+    val id_user: Int? = null,
 )

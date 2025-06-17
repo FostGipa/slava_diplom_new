@@ -58,9 +58,12 @@ dependencies {
 
     implementation(libs.auth.kt)
     implementation(libs.postgrest.kt)
-    implementation("io.github.jan-tennert.supabase:storage-kt:3.1.2")
-    implementation(libs.ktor.client.android)
+    implementation(libs.storage.kt)
+    implementation(libs.realtime.kt)
+    implementation(libs.ktor.client.websockets)
+    implementation(libs.ktor.client.okhttp)  // OkHttp в качестве клиента
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.8.9")
     implementation (libs.kotlinx.coroutines.core)
 }

@@ -103,7 +103,7 @@
             android:textSize="17sp"
             android:id="@+id/loginForgotPassButton"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/loginButton"

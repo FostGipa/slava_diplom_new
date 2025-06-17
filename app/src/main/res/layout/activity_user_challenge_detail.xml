@@ -15,222 +15,167 @@
         android:indeterminateTint="#2260FF"
         android:visibility="gone"/>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:id="@+id/relativeLayout">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:paddingHorizontal="20dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:id="@+id/backButton"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_arrow_back" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:textColor="#2260FF"
-                    android:layout_centerInParent="true"
-                    android:text="Иформация"
-                    android:textSize="25sp" />
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/ratingButton"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_kybok" />
-            </RelativeLayout>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:paddingHorizontal="20dp"
-                android:paddingVertical="20dp"
-                android:orientation="vertical"
-                android:background="@drawable/challenge_list_item_bg">
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageButton
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/backButton"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_arrow_back" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textColor="#2260FF"
+                        android:layout_centerInParent="true"
+                        android:text="Иформация"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/ratingButton"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_kybok" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:id="@+id/categoryImageView"
-                        android:padding="10dp"
-                        android:background="@drawable/white_oval"
-                        android:src="@drawable/ic_read"/>
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/challenge_list_item_bg">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/nameTextView"
-                            android:text=""
-                            android:textColor="#2260FF"
-                            android:fontFamily="@font/ubuntu_bold"
-                            android:textSize="17sp"
-                            android:maxLines="1"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/categoryTextView"
-                            android:layout_marginTop="5dp"
-                            android:text=""
-                            android:textColor="#6E7375"
-                            android:fontFamily="@font/ubuntu_regular"
-                            android:textSize="14sp"
-                            android:maxLines="1"/>
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/categoryImageView"
+                            android:padding="10dp"
+                            android:background="@drawable/white_oval"
+                            android:src="@drawable/ic_read"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_user"/>
+                            android:layout_marginStart="20dp"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/userCountTextView"
-                                android:layout_marginStart="5dp"
-                                android:text="0"
-                                android:fontFamily="@font/ubuntu_regular"
+                                android:id="@+id/nameTextView"
+                                android:text=""
                                 android:textColor="#2260FF"
-                                android:textSize="18sp"/>
-                        </LinearLayout>
+                                android:fontFamily="@font/ubuntu_bold"
+                                android:textSize="17sp"
+                                android:maxLines="1"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/dateEditText"
-                            android:layout_marginTop="10dp"
-                            android:text=""
-                            android:textColor="#2260FF"
-                            android:textSize="15sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/categoryTextView"
+                                android:layout_marginTop="5dp"
+                                android:text=""
+                                android:textColor="#6E7375"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:textSize="14sp"
+                                android:maxLines="1"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_user"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/userCountTextView"
+                                    android:layout_marginStart="5dp"
+                                    android:text="0"
+                                    android:fontFamily="@font/ubuntu_regular"
+                                    android:textColor="#2260FF"
+                                    android:textSize="18sp"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/dateEditText"
+                                android:layout_marginTop="10dp"
+                                android:text=""
+                                android:textColor="#2260FF"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="10dp"
-                android:background="#2260FF"/>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#2260FF"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Задачи"
-                android:fontFamily="@font/ubuntu_bold"
-                android:textColor="#2260FF"
-                android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Задачи"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:textColor="#2260FF"
+                    android:textSize="20sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/taskTextView"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:fontFamily="@font/ubuntu_regular"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:lineSpacingExtra="5dp"/>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:background="#2260FF"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Награда"
-                android:fontFamily="@font/ubuntu_bold"
-                android:textColor="#2260FF"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rewardTextView"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:fontFamily="@font/ubuntu_regular"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:lineSpacingExtra="5dp"/>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="20dp"
-                android:background="#2260FF"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Описание"
-                android:fontFamily="@font/ubuntu_bold"
-                android:textColor="#2260FF"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/descriptionTextView"
-                android:layout_marginTop="10dp"
-                android:text=""
-                android:fontFamily="@font/ubuntu_regular"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:lineSpacingExtra="5dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/hidenProgressLayout"
-                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/taskTextView"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="5dp"/>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
@@ -242,111 +187,202 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Прогресс"
+                    android:text="Награда"
                     android:fontFamily="@font/ubuntu_bold"
                     android:textColor="#2260FF"
                     android:textSize="20sp"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rewardTextView"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="5dp"/>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#2260FF"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Описание"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:textColor="#2260FF"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descriptionTextView"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="5dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="90dp"
-                    android:weightSum="1">
+                    android:id="@+id/hidenProgressLayout"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="20dp"
+                        android:background="#2260FF"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Прогресс"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:textColor="#2260FF"
+                        android:textSize="20sp"/>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:layout_weight="0.7"
-                        android:background="@drawable/challenge_progress_bg"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/challengeTakeDateTextView"
-                            android:text=""
-                            android:fontFamily="@font/ubuntu_medium"
-                            android:textColor="@color/black"
-                            android:textSize="19sp"/>
+                        android:layout_marginTop="10dp"
+                        android:weightSum="1">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
+                            android:paddingVertical="15dp"
+                            android:paddingHorizontal="20dp"
+                            android:background="@drawable/challenge_progress_bg"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/ic_progress"/>
-
-                            <LinearLayout
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:orientation="vertical">
+                                android:id="@+id/challengeTakeDateTextView"
+                                android:text="Дата принятия: "
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"/>
 
-                                <TextView
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="45dp"
+                                    android:layout_height="45dp"
+                                    android:src="@drawable/ic_progress"/>
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/progressTaskTextView"
-                                    android:fontFamily="@font/ubuntu_medium"
-                                    android:text="Read The Book"
-                                    android:maxLines="1"
-                                    android:textColor="@color/black"
-                                    android:textSize="19sp"/>
+                                    android:layout_marginStart="10dp"
+                                    android:orientation="vertical">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Задача"
-                                    android:textColor="@color/black"
-                                    android:fontFamily="@font/ubuntu_regular"
-                                    android:textSize="17sp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Текущая задача"
+                                        android:textColor="@color/black"
+                                        android:fontFamily="@font/ubuntu_regular"
+                                        android:textSize="17sp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/progressTaskTextView"
+                                        android:fontFamily="@font/ubuntu_medium"
+                                        android:text="Read The Book"
+                                        android:maxLines="1"
+                                        android:textColor="@color/black"
+                                        android:textSize="19sp"/>
+                                </LinearLayout>
                             </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:text="Прогресс"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"/>
+
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/progressBar"
+                                android:progressTint="#2260FF"
+                                android:backgroundTint="@color/white"
+                                android:progress="0"
+                                style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/progressTextView"
+                                android:textAlignment="textEnd"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:text="50 %"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"/>
                         </LinearLayout>
-
-                        <ProgressBar
-                            android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_marginTop="20dp"
-                            android:id="@+id/progressBar"
-                            android:progressTint="#2260FF"
-                            android:backgroundTint="@color/white"
-                            android:progress="0"
-                            style="@android:style/Widget.ProgressBar.Horizontal"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/resultTextView"
-                            android:text="Ваш результат: "
-                            android:fontFamily="@font/ubuntu_medium"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="20dp"/>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/acceptButton"
-        android:layout_marginTop="40dp"
-        android:textAllCaps="false"
-        android:background="@drawable/button_bg"
-        android:textColor="@color/white"
-        android:fontFamily="@font/ubuntu_bold"
-        android:textSize="18sp"
-        android:text="Принять челлендж"/>
+                <LinearLayout
+                    android:id="@+id/myChallengesSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="90dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Мои ответы"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/myOtvetRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        android:layout_marginBottom="40dp"
+                        android:nestedScrollingEnabled="false"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/testButton"
+            android:textAllCaps="false"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textSize="18sp" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -17,6 +17,8 @@ data class UserChallenge(
     val step: String,
     @SerialName("progress")
     val progress: Int,
+    @SerialName("pts")
+    val pts: Int,
     @SerialName("challenge")
     val challenge: Challenge? = null,
     @SerialName("users")

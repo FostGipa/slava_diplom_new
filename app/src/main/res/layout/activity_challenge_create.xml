@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChallengeCreateActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/signupBackButton"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_arrow_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="#2260FF"
+                    android:layout_centerInParent="true"
+                    android:text="Создание"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Название челленджа"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameEditText"
+                android:hint="Название"
+                android:textColorHint="#809CFF"
+                android:inputType="text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Категория"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/categorySpinner"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Описание"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionEditText"
+                android:textColorHint="#809CFF"
+                android:hint="Описание"
+                android:inputType="text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Задачи"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/taskEditText"
+                android:textColorHint="#809CFF"
+                android:hint="Перечислите через запятую"
+                android:inputType="text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Награды"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rewardEditText"
+                android:textColorHint="#809CFF"
+                android:hint="Награды"
+                android:inputType="text"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Дата начала"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/startDateEditText"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="#809CFF"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="01.01.2000"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Дата окончания"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/endDateEditText"
+                android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="#809CFF"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="01.01.2000"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/createButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_bg"
+                android:text="Отправить"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textSize="20sp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

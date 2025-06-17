@@ -1,21 +1,20 @@
 package com.example.slava.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
-import com.example.slava.ChallengeFragment
-import com.example.slava.HomeFragment
-import com.example.slava.ProfileFragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.slava.R
-import com.example.slava.SettingFragment
 import com.example.slava.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,40 +23,40 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, HomeFragment())
-            .commit()
+        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.let { fragment ->
+            (fragment as? androidx.navigation.fragment.NavHostFragment)?.navController
+        } ?: throw IllegalStateException("NavController не найден")
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setupWithNavController(navController)
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
                 R.id.nav_home -> {
-                    replaceFragment(HomeFragment())
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_home)
                     true
                 }
                 R.id.nav_challenge -> {
-                    replaceFragment(ChallengeFragment())
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_challenge)
                     true
                 }
                 R.id.nav_setting -> {
-                    replaceFragment(SettingFragment())
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_setting)
                     true
                 }
                 R.id.nav_profile -> {
-                    replaceFragment(ProfileFragment())
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
                     true
                 }
                 else -> false
             }
         }
-    }
 
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .commit()
+        binding.addButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ChallengeCreateActivity::class.java))
+        }
     }
 }
